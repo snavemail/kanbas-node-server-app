@@ -4,21 +4,21 @@ const assignment = {
   description: 'Create a NodeJS server with ExpressJS',
   due: '2021-10-10',
   completed: false,
-  score: 0,
+  score: 0
 };
 
 const module = {
   id: 1,
   name: 'NodeJS Module',
   description: 'NodeJS and ExpressJS',
-  course: 'CS572',
+  course: 'CS572'
 };
 
 const todos = [
   { id: 1, title: 'Task 1', completed: false },
   { id: 2, title: 'Task 2', completed: true },
   { id: 3, title: 'Task 3', completed: false },
-  { id: 4, title: 'Task 4', completed: true },
+  { id: 4, title: 'Task 4', completed: true }
 ];
 
 const Lab5 = app => {
@@ -33,7 +33,7 @@ const Lab5 = app => {
     const newTodo = {
       id: new Date().getTime(),
       title: 'New Task',
-      completed: false,
+      completed: false
     };
     todos.push(newTodo);
     res.json(todos);
@@ -58,6 +58,21 @@ const Lab5 = app => {
     const todo = todos.find(t => t.id === parseInt(id));
     todo.title = title;
     res.json(todos);
+  });
+
+  app.get('/a5/todos/:id/completed/:completed', (req, res) => {
+    const { id, completed } = req.params;
+    console.log('completed', completed);
+    const todo = todos.find(todo => todo.id === parseInt(id));
+    todo.completed = completed;
+    res.json(todo);
+  });
+
+  app.get('/a5/todos/:id/description/:description', (req, res) => {
+    const { id, description } = req.params;
+    const todo = todos.find(todo => todo.id === parseInt(id));
+    todo.description = description;
+    res.json(todo);
   });
 
   app.get('/a5/todos', (req, res) => {
